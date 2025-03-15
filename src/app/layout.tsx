@@ -10,7 +10,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Car Delings",
-  description: "an Ultimate platform for cars dealings",
+  description: "an Ultimate platform for cars dealings with AI",
 };
 
 const mulish = Mulish({
