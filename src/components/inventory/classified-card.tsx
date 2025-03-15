@@ -14,6 +14,7 @@ import {
   formatOdometerUnit,
   formatTransmission,
 } from "@/lib/utils";
+import { FavouriteButton } from "./favorite-button";
 
 interface ClassifiedCardProps {
   classified: ClassifiedWithImages;
@@ -64,6 +65,7 @@ export const ClassifiedCard = (props: ClassifiedCardProps) => {
             quality={25}
           />
         </Link>
+        <FavouriteButton />
         <div className="absolute top-2.5 right-3.5 bg-primary text-slate-50 font-bold px-2 py-1 rounded">
           <p className="text-xs lg:text-base xl:text-lg font-semibold">
             {classified.price}
