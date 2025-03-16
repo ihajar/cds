@@ -1,4 +1,4 @@
-import { Color, FuelType, OdoUnit, Transmission } from "@prisma/client";
+import { Color, CurrencyCode, FuelType, OdoUnit, Transmission } from "@prisma/client";
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -79,4 +79,20 @@ export function formatColor(color: Color) {
     default:
         return "unknown";
 }
+}
+
+// Add FormatPrice with currency code
+export function formatPrice(price: number, currencyCode: CurrencyCode) {
+  const currencyMap = {
+    [CurrencyCode.DZ]: "DZD",
+    [CurrencyCode.EUR]: "EUR",
+    [CurrencyCode.USD]: "USD",
+    [CurrencyCode.GBP]: "GBP"
+  }
+  const currency = currencyMap[currencyCode] || "DZD";
+
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "DZD",
+  }).format(price);
 }

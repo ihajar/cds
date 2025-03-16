@@ -21,7 +21,7 @@ model Classified {
     fuelType       FuelType         @default(PETROL)
     bodyType       BodyType         @default(SEDAN)
     odoUnit        OdoUnit          @default(MILES)
-    currency       CurrencyCode     @default(DZ)
+    currency       CurrencyCode     @default(DZD)
     status         ClassifiedStatus @default(DRAFT)
     images         Image[]
     customers      Customer[]
@@ -41,7 +41,7 @@ enum ClassifiedStatus {
 }
 
 enum CurrencyCode {
-    DZ
+    DZD
     EUR
     USD
     GBP
