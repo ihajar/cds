@@ -1,4 +1,5 @@
-import { Color, CurrencyCode, FuelType, OdoUnit, Transmission } from "@prisma/client";
+import { AwaitedPageProps } from "@/config/types";
+import { Color, CurrencyCode, FuelType, OdoUnit, Prisma, Transmission } from "@prisma/client";
 import { clsx, type ClassValue } from "clsx"
 import { twMerge } from "tailwind-merge"
 
@@ -96,3 +97,10 @@ export function formatPrice(price: number, currencyCode: CurrencyCode) {
     currency: "DZD",
   }).format(price);
 }
+
+// export const buildClassifiedFilterQuery = (
+//   searchParams: AwaitedPageProps["searchParams"] | undefined,
+// ): Prisma.ClassifiedWhereInput => {
+//   const { data } = Clas
+//   return ()
+// }
