@@ -187,8 +187,8 @@ export const Sidebar = ({ minMaxValues, searchParams }: SidebarProps) => {
 					}))}
 				/>
                 <Select
-					label="Colour"
-					name="colour"
+					label="Color"
+					name="color"
 					value={queryStates.color || ""}
 					onChange={handleChange}
 					options={Object.values(Color).map((value) => ({

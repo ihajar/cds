@@ -77,7 +77,7 @@ export const ClassifiedCard = (props: ClassifiedCardProps) => {
           initial={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.2 }}
-          className="bg-white relative rounded-lg shadow-md overflow-hidden flex flex-col"
+          className="bg-white relative rounded-lg shadow-md overflow-hidden flex flex-col justify-between"
         >
           <div className="aspect-3/2 relative">
             <Link href={routes.singleClassified(classified.slug)}>
@@ -98,7 +98,7 @@ export const ClassifiedCard = (props: ClassifiedCardProps) => {
             />
             <div className="absolute top-2.5 right-3.5 bg-primary/80 text-slate-50 font-bold px-2 py-1 rounded">
               <p className="text-xs lg:text-base xl:text-lg font-semibold">
-                {formatPrice(classified.price, classified.currency)}
+                {formatPrice({price: classified.price, currency: classified.currency})}
               </p>
             </div>
           </div>

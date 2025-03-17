@@ -3,4 +3,4 @@ export const imageSources = {
 }
 
 
-export const CLASSIFIED_PER_PAGE = 9;
+export const CLASSIFIED_PER_PAGE = 10;
