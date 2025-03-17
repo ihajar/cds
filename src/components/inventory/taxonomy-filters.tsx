@@ -51,6 +51,7 @@ export const TaxonomyFilters = (props: TaxonomyFiltersProps) => {
             value={searchParams?.make as string}
             onChange={handleChange}
             options={makes}
+            placeholder={searchParams?.make ? `Select a ${searchParams.make} make` : "Select a make"}
           /> 
           <Select
             label="Model"
@@ -59,6 +60,7 @@ export const TaxonomyFilters = (props: TaxonomyFiltersProps) => {
             onChange={handleChange}
             options={models}
             disabled={!models.length}
+            placeholder={searchParams?.model ? `Select a ${searchParams.model} model` : "Select a model"}
           />
           <Select
             label="Model Variant"
@@ -67,6 +69,7 @@ export const TaxonomyFilters = (props: TaxonomyFiltersProps) => {
             onChange={handleChange}
             options={modelVariants}
             disabled={!modelVariants.length}
+            placeholder={searchParams?.model ? `Select a ${searchParams.model} variant` : "Select a model variant"}
           />
 
         </>

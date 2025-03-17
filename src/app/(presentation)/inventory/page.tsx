@@ -8,6 +8,8 @@ import { PageSchema } from "@/app/schemas/page.schema";
 import { CustomPagination } from "@/components/shared/custom-pagination";
 import { ClassifiedList } from "@/components/inventory/classifieds-list";
 import { Sidebar } from "@/components/inventory/sidebar";
+import { buildClassifiedFilterQuery } from "@/lib/utils";
+import { ClassifiedStatus } from "@prisma/client";
 
 
 const getInventory = async (searchParams: AwaitedPageProps["searchParams"]) => {
@@ -18,6 +20,7 @@ const getInventory = async (searchParams: AwaitedPageProps["searchParams"]) => {
   const offset = (page - 1) * CLASSIFIED_PER_PAGE;
   
   return prisma.classified.findMany({
+    where: buildClassifiedFilterQuery(searchParams),
     include: { images: { take: 1 } },
     skip: offset,
     take: CLASSIFIED_PER_PAGE,
@@ -28,13 +31,26 @@ export default async function InventoryPage(props: PageProps) {
   const searchParams = await props.searchParams;
   const classifieds = await getInventory(searchParams);
   const count = await prisma.classified.count({
-    where: {},
+    where: buildClassifiedFilterQuery(searchParams),
+  });
+
+  const minMaxResult = await prisma.classified.aggregate({
+    where: { status: ClassifiedStatus.LIVE },
+    _min: {
+      year: true,
+      price: true,
+      odoReading: true,
+    },
+    _max: {
+      year: true,
+      price: true,
+      odoReading: true,
+    },
   });
 
   const sourceId = await getSourceId();
   const favourites = await redis.get<Favourites>(sourceId ?? "");
-  console.log({ favourites });
-
+  // console.log({ favourites });
   const totalPages = Math.ceil(count / CLASSIFIED_PER_PAGE);
 
   return (
@@ -66,7 +82,7 @@ export default async function InventoryPage(props: PageProps) {
       </div>
       <div className="flex-1 w-full flex flex-col lg:flex-row overflow-hidden">
         <div className="p-4 md:w-1/4 overflow-y-auto">
-          <Sidebar minMaxValues={null} searchParams={searchParams} />
+          <Sidebar minMaxValues={minMaxResult} searchParams={searchParams} />
         </div>
         <div className="p-4 lg:w-3/4 overflow-y-auto flex flex-col items-center justify-between gap-y-4">
           <ClassifiedList

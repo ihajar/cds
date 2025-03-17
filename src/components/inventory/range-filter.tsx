@@ -63,7 +63,7 @@ export const RangeFilter = (props: RangeFilterProps) => {
     const initialState = getInitialState();
 
     const [minOptions, setMinOptions] = useState<FilterOptions<string, number>>(initialState);
-    const [maxOptions, setMaxOptions] = useState<FilterOptions<string, number>>(initialState);
+    const [maxOptions, setMaxOptions] = useState<FilterOptions<string, number>>(initialState.toReversed());
 
     // biome-igonre lint:
     useEffect(() => {
@@ -71,7 +71,7 @@ export const RangeFilter = (props: RangeFilterProps) => {
             setMaxOptions(initialState.filter(({ value }) => value > Number(searchParams[minName])))
         }
         if (searchParams?.[maxName]) {
-            setMaxOptions(initialState.filter(({value}) => value < Number(searchParams[maxName])))
+            setMinOptions(initialState.filter(({value}) => value < Number(searchParams[maxName])))
         }
     }, [searchParams?.[minName], searchParams?.[maxName]]);
 

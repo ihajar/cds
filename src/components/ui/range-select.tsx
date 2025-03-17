@@ -46,5 +46,5 @@ export const RangeSelect = (props: RangeSelectProps) => {
                 </select>
             </div>
         </>
-    );
+    )
 }

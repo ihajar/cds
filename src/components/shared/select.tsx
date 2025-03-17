@@ -2,6 +2,7 @@ import { cn } from "@/lib/utils";
 import type { ChangeEvent, SelectHTMLAttributes } from "react";
 
 interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
+  placeholder?:string;
   label?: string;
   value: string;
   options: { label: string; value: string }[];
@@ -13,6 +14,7 @@ interface SelectProps extends SelectHTMLAttributes<HTMLSelectElement> {
 
 export const Select = (props: SelectProps) => {
   const {
+    placeholder = "Select",
     label,
     value,
     options,
@@ -32,11 +34,11 @@ export const Select = (props: SelectProps) => {
           value={value ?? ""}
           className={cn(
             selectClassName,
-            "disabled:!bg-slate-100 w-full px-3 py-2 border-input border rounded-md focus:outline-hidden custom-select appearance-none pr-12 bg-no-repeat"
+            "disabled:!bg-primary/20 w-full px-3 py-2 border-input border rounded-md focus:outline-hidden custom-select appearance-none pr-12 bg-no-repeat"
           )}
           {...rest}
         >
-          {noDefault && <option value="">Select</option>}
+          {noDefault && <option value="">{placeholder}</option>}
           {options.map((option) => (
             <option key={option.value} value={option.value}>
                 {option.label}
