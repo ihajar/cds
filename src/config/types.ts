@@ -1,4 +1,6 @@
+import type { ChangeEvent } from "react";
 import { Prisma } from "@prisma/client";
+
 
 
 type Params = {
@@ -14,6 +16,22 @@ export type AwaitedPageProps = {
     params?: Awaited<PageProps["params"]>;
     searchParams?: Awaited<PageProps["searchParams"]>;
 }
+
+export interface SidebarProps extends AwaitedPageProps {
+    minMaxValues: Prisma.GetClassifiedAggregateType<{
+        _min: {
+            year: true;
+            price: true;
+            odoReading: true;
+        };
+        _max: {
+            year: true;
+            odoReading: true;
+            price: true;
+        };
+    }>;
+}
+
 export type ClassifiedWithImages = Prisma.ClassifiedGetPayload<{
     include: {
         images: true;
@@ -28,4 +46,13 @@ export enum MultiStepFormEnum {
 
 export interface Favourites {
     ids: number[];
+}
+
+export type FilterOptions<LType, VType> = Array<{
+    label: LType;
+    value: VType;
+}>
+
+export interface TaxonomyFiltersProps extends AwaitedPageProps {
+    handleChange: (e: ChangeEvent<HTMLSelectElement>) => void;
 }

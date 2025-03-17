@@ -97,6 +97,23 @@ export function formatPrice(price: number, currencyCode: CurrencyCode) {
     currency: "DZD",
   }).format(price);
 }
+// 2nd Price Format function to use in Filters
+interface FormatPriceArgs {
+  price: number | null;
+  currency: CurrencyCode | null;
+}
+
+export function formatPriceFilter({ price, currency }: FormatPriceArgs) {
+  if (!price) return "0";
+
+  const formatter = new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currencyDisplay: "narrowSymbol",
+    ...(currency && { currency }),
+    maximumFractionDigits: 0,
+  });
+  return formatter.format(price / 100);
+}
 
 // export const buildClassifiedFilterQuery = (
 //   searchParams: AwaitedPageProps["searchParams"] | undefined,

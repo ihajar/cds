@@ -71,7 +71,7 @@ export const CustomPagination = (props: PaginationProps) => {
 
     return (
         <PaginationRoot className={styles.paginationRoot}>
-            <PaginationContent className="lg:gap-4 justify-end">
+            <PaginationContent className="lg:gap-4 justify-end border rounded-lg">
                 <PaginationItem>
                     <PaginationPrevious
                         className={cn(
@@ -108,7 +108,7 @@ export const CustomPagination = (props: PaginationProps) => {
                     if (pageNumber === currentPage - 1) { rel = "prev" };
                     if (pageNumber === currentPage + 1) { rel = "next" };
                     return (
-                        <PaginationItem key={pageNumber}>
+                        <PaginationItem key={pageNumber} >
                             <PaginationLink
                                 isActive={isActive}
                                 href={createPageUrl(pageNumber)}
