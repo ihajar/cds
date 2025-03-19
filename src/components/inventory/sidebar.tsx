@@ -26,6 +26,8 @@ export const Sidebar = ({ minMaxValues, searchParams }: SidebarProps) => {
         modelVariant: parseAsString.withDefault(""),
         minYear: parseAsString.withDefault(""),
         maxYear: parseAsString.withDefault(""),
+        minPrice: parseAsString.withDefault(""),
+        maxPrice: parseAsString.withDefault(""),
         minReading: parseAsString.withDefault(""),
         maxReading: parseAsString.withDefault(""),
         currency: parseAsString.withDefault(""),
@@ -112,19 +114,19 @@ export const Sidebar = ({ minMaxValues, searchParams }: SidebarProps) => {
                     searchParams={searchParams}
                 />
                 <RangeFilter
-					label="Price"
-					minName="minPrice"
-					maxName="maxPrice"
-					defaultMin={_min.price || 0}
-					defaultMax={_max.price || 21474836}
-					handleChange={handleChange}
-					searchParams={searchParams}
-					increment={1000000}
-					thousandSeparator
-					currency={{
-						currencyCode: "USD",
-					}}
-				/>
+							label="Price"
+							minName="minPrice"
+							maxName="maxPrice"
+							defaultMin={_min.price || 0}
+							defaultMax={_max.price || 21474836}
+							handleChange={handleChange}
+							searchParams={searchParams}
+							increment={1000000}
+							thousandSeparator
+							currency={{
+								currencyCode: "USD",
+							}}
+						/>
                 <RangeFilter
 					label="Odometer Reading"
 					minName="minReading"

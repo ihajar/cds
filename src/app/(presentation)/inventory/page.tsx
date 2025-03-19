@@ -10,6 +10,7 @@ import { ClassifiedList } from "@/components/inventory/classifieds-list";
 import { Sidebar } from "@/components/inventory/sidebar";
 import { buildClassifiedFilterQuery } from "@/lib/utils";
 import { ClassifiedStatus } from "@prisma/client";
+import { DialogFilters } from "@/components/inventory/dialog-filters";
 
 
 const getInventory = async (searchParams: AwaitedPageProps["searchParams"]) => {
@@ -56,7 +57,7 @@ export default async function InventoryPage(props: PageProps) {
   return (
     <div className="bg-muted-foreground/10 min-h-screen w-full flex flex-col items-center">
       <div className="w-full flex flex-col space-y-5 items-center p-4">
-        <div className="flex w-full">
+        <div className="flex w-full justify-between items-center">
           <h1 className="text-base md:text-xl lg:text-3xl font-semibold min-w-fit">
             Explore and Buy{" "}
             <span className="bg-primary text-white p-1 rounded-md">
@@ -64,21 +65,12 @@ export default async function InventoryPage(props: PageProps) {
             </span>{" "}
             Car Models Today!
           </h1>
+          <DialogFilters 
+          minMaxValues={minMaxResult}
+          count={count}
+          searchParams={searchParams}
+        />
         </div>
-        {/* <div className="hidden md:flex justify-end items-end w-full">
-          <CustomPagination
-            baseUrl={routes.inventory}
-            totalPages={totalPages}
-            styles={{
-              paginationRoot: "justify-end hidden lg:flex",
-              paginationNext: "",
-              paginationPrevious: "",
-              paginationLink: "border-none active:border text-black",
-              paginationLinkActive: "",
-            }}
-          />
-        </div> */}
-        {/* Dialog Filters  for Mobile */}
       </div>
       <div className="flex-1 w-full flex flex-col lg:flex-row overflow-hidden">
         <div className="p-4 md:w-1/4 overflow-y-auto">
