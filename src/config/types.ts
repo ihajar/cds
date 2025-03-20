@@ -56,3 +56,8 @@ export type FilterOptions<LType, VType> = Array<{
 export interface TaxonomyFiltersProps extends AwaitedPageProps {
     handleChange: (e: ChangeEvent<HTMLSelectElement>) => void;
 }
+
+export type PrevState = {
+    success: boolean;
+    message: string;
+}
