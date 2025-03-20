@@ -11,6 +11,9 @@ import { Sidebar } from "@/components/inventory/sidebar";
 import { buildClassifiedFilterQuery } from "@/lib/utils";
 import { ClassifiedStatus } from "@prisma/client";
 import { DialogFilters } from "@/components/inventory/dialog-filters";
+import { Suspense } from "react";
+import { InventorySkeleton } from "@/components/inventory/inventory-skeleton";
+
 
 
 const getInventory = async (searchParams: AwaitedPageProps["searchParams"]) => {
@@ -77,10 +80,13 @@ export default async function InventoryPage(props: PageProps) {
           <Sidebar minMaxValues={minMaxResult} searchParams={searchParams} />
         </div>
         <div className="p-4 lg:w-3/4 overflow-y-auto flex flex-col items-center justify-between gap-y-4">
-          <ClassifiedList
-            classifieds={classifieds}
-            favourites={favourites ? favourites.ids : []}
-          />
+          <Suspense fallback={<InventorySkeleton />}>
+            <ClassifiedList
+              classifieds={classifieds}
+              favourites={favourites ? favourites.ids : []}
+            />
+          </Suspense>
+          
           <CustomPagination
             baseUrl={routes.inventory}
             totalPages={totalPages}
