@@ -58,7 +58,6 @@ export const PublicFooter = () => {
             alt="logo"
             className="h-8 relative"
             src="/logo.svg"
-            objectFit="cover"
           />
         </Link>
         <div className="flex flex-col md:flex-row w-full items-center justify-between p-8 space-y-3 md:space-y-0">

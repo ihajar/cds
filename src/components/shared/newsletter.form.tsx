@@ -1,10 +1,10 @@
 "use client";
 
-import { useActionState, useEffect, useRef } from "react";
+import { startTransition, useActionState, useEffect, useRef } from "react";
 import { useFormStatus } from "react-dom";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { ArrowBigLeft, ArrowLeft, ArrowRight, Loader2 } from "lucide-react";
+import { ArrowRight, CircleCheckIcon, CircleX, Loader2 } from "lucide-react";
 
 import { subscribeAction } from "@/app/_actions/subscribe";
 
@@ -38,7 +38,7 @@ const SubscribeButton = () => {
 
 export const NewsLetterForm = () => {
   const formRef = useRef<HTMLFormElement>(null);
-  const [state, formAction] = useActionState(subscribeAction, {
+  const [state, formAction, pending] = useActionState(subscribeAction, {
     success: false,
     message: "",
   });
@@ -46,12 +46,20 @@ export const NewsLetterForm = () => {
   const form = useForm({
     resolver: zodResolver(SubscribeSchema),
     mode: "onChange",
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+    },
   });
 
   const handleFormAction = async (formData: FormData) => {
     const valid = await form.trigger();
     if (!valid) return;
-    formAction(formData);
+    
+    startTransition(() => {
+      formAction(formData);
+    });
   };
 
   useEffect(() => {
@@ -62,6 +70,9 @@ export const NewsLetterForm = () => {
 
   return (
     <div className="w-ful">
+      <h3 className="text-sm md:text-xl text-center md:text-start font-bold text-foreground py-2">
+        Subscribe to out newsletter
+      </h3>
       <Form {...form}>
         <form
           action={handleFormAction}
@@ -78,6 +89,7 @@ export const NewsLetterForm = () => {
                   <FormItem>
                     <FormControl>
                       <Input
+                        type="text"
                         placeholder="First Name"
                         className="bg-muted"
                         {...field}
@@ -94,6 +106,7 @@ export const NewsLetterForm = () => {
                   <FormItem>
                     <FormControl>
                       <Input
+                        type="text"
                         placeholder="Last Name"
                         className="bg-muted"
                         {...field}
@@ -112,6 +125,7 @@ export const NewsLetterForm = () => {
                   <FormItem className="flex-1">
                     <FormControl>
                       <Input
+                        type="email"
                         placeholder="E-mail"
                         className="bg-muted rounded-br-none rounded-tr-none"
                         {...field}
@@ -121,8 +135,20 @@ export const NewsLetterForm = () => {
                   </FormItem>
                 )}
               />
-              <SubscribeButton />
+             <SubscribeButton/>
             </div>
+            {state.success && (
+              <div className="flex items-center gap-2 rounded-md bg-emerald-600 p-3 text-white">
+                <CircleCheckIcon className="w-5 h-5" />
+                <span>Success! {state.message}</span>
+              </div>
+            )}
+            {!state.success && state.message && (
+              <div className="flex items-center gap-2 rounded-md bg-destructive p-3 text-white">
+                <CircleX className="w-5 h-5" />
+                <span>Error! {state.message}</span>
+              </div>
+            )}
           </div>
         </form>
       </Form>
