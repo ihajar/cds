@@ -33,7 +33,7 @@ const getInventory = async (searchParams: AwaitedPageProps["searchParams"]) => {
 
 export default async function InventoryPage(props: PageProps) {
   const searchParams = await props.searchParams;
-  const classifieds = await getInventory(searchParams);
+  const classifieds = getInventory(searchParams);
   const count = await prisma.classified.count({
     where: buildClassifiedFilterQuery(searchParams),
   });
